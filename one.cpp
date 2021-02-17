@@ -1,17 +1,34 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+
+int smallestSubWithSum(int arr[], int n, int x)
+{
+	int curr_sum = 0, min_len = n + 1;
+	int start = 0, end = 0;
+	while (end < n) 
+	{
+		while (curr_sum <= x && end < n)
+			curr_sum =curr_sum + arr[end++];
+
+		while (curr_sum > x && start < n) 
+		{
+			if (end - start < min_len)
+				min_len = end - start;
+
+			curr_sum =curr_sum - arr[start++];
+		}
+	}
+	return min_len;
+}
+
 int main()
 {
-    int arr[]={12, 4, 7, 9, 2, 23, 25, 41, 30, 40, 28, 42, 30, 44, 48, 43, 50};
-    int n=sizeof(arr)/sizeof(arr[0]);
-    int m=7;
-
-    sort(arr,arr+n);
-    int res=arr[m-1]-arr[0];
-    for(int i=0;(i+m-1)<n;i++)
-    {
-        res=min(res,arr[i+m-1]-arr[i]);
-    }
-
-    cout<<res;
+	int arr1[] = { 1, 4, 45, 6, 10, 19 };
+	int x = 51	;
+	int n1 = sizeof(arr1) / sizeof(arr1[0]);
+	int res1 = smallestSubWithSum(arr1, n1, x);
+	if(res1>n1)
+	cout<<"Not Possible";
+	else
+	cout<<res1;	
 }
